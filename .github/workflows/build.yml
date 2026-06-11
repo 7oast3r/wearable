@@ -13,6 +13,14 @@ jobs:
         with:
           xcode-version: '15.4'
 
+      - name: Install XcodeGen tool
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project Folder
+        run: |
+          cd ios
+          xcodegen generate
+
       - name: Build App
         run: |
           cd ios
