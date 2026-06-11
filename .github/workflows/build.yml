@@ -1,0 +1,32 @@
+name: Build iOS App
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.4'
+
+      - name: Build App
+        run: |
+          cd ios
+          xcodebuild -project OpenWhoop.xcodeproj -scheme OpenWhoop -configuration Release -sdk iphoneos CODE_SIGNING_ALLOWED=NO
+
+      - name: Package IPA
+        run: |
+          mkdir -p build/Payload
+          cp -r ios/build/Release-iphoneos/OpenWhoop.app build/Payload/
+          cd build
+          zip -r OpenWhoop.ipa Payload
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app-release
+          path: build/OpenWhoop.ipa
