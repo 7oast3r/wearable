@@ -114,15 +114,17 @@ extension WhoopStore {
     public func storageStats_rowCountsForTest() async throws
         -> (hr: Int, rr: Int, events: Int, battery: Int,
             spo2: Int, skinTemp: Int, resp: Int, gravity: Int) {
-        try syncRead { db in
-            (try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM hrSample") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM rrInterval") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM event") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM battery") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM spo2Sample") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM skinTempSample") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM respSample") ?? 0,
-             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM gravitySample") ?? 0)
+try syncRead { db in
+            let hrCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM hrSample") ?? 0
+            let rrCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM rrInterval") ?? 0
+            let eventCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM event") ?? 0
+            let batteryCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM battery") ?? 0
+            let spo2Count: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM spo2Sample") ?? 0
+            let skinTempCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM skinTempSample") ?? 0
+            let respCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM respSample") ?? 0
+            let gravityCount: Int = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM gravitySample") ?? 0
+            
+            return (hrCount, rrCount, eventCount, batteryCount, spo2Count, skinTempCount, respCount, gravityCount)
         }
     }
 
