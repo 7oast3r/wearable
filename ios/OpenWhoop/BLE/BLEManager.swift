@@ -547,6 +547,7 @@ public final class BLEManager: NSObject, ObservableObject {
 }
 
 // MARK: - CBCentralManagerDelegate
+#@preconcurrency extension BLEManager: CBCentralManagerDelegate {
 extension BLEManager: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         log("Central state: \(central.state.rawValue) (5 = poweredOn)")
@@ -662,6 +663,7 @@ extension BLEManager: CBCentralManagerDelegate {
 }
 
 // MARK: - CBPeripheralDelegate
+    #@preconcurrency extension BLEManager: CBCentralManagerDelegate {
 extension BLEManager: CBPeripheralDelegate {
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
