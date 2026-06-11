@@ -24,12 +24,12 @@ jobs:
       - name: Build App
         run: |
           cd ios
-          xcodebuild -project OpenWhoop.xcodeproj -scheme OpenWhoop -configuration Release -sdk iphoneos CODE_SIGNING_ALLOWED=NO OTHER_SWIFT_FLAGS="-Xfrontend -type-check-expression-timeout-threshold=0"
+          xcodebuild -project OpenWhoop.xcodeproj -scheme OpenWhoop -configuration Debug -sdk iphoneos CODE_SIGNING_ALLOWED=NO
 
       - name: Package IPA
         run: |
           mkdir -p build/Payload
-          cp -r ios/build/Release-iphoneos/OpenWhoop.app build/Payload/
+          cp -r ios/build/Debug-iphoneos/OpenWhoop.app build/Payload/
           cd build
           zip -r OpenWhoop.ipa Payload
 
