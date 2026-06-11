@@ -24,7 +24,7 @@ jobs:
       - name: Build App
         run: |
           cd ios
-          xcodebuild -project OpenWhoop.xcodeproj -scheme OpenWhoop -configuration Debug -sdk iphoneos CODE_SIGNING_ALLOWED=NO
+          xcodebuild -project OpenWhoop.xcodeproj -scheme OpenWhoop -configuration Debug -sdk iphoneos CODE_SIGNING_ALLOWED=NO SYMROOT=$PWD/build
 
       - name: Package IPA
         run: |
